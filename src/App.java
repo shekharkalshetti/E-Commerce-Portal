@@ -11,5 +11,6 @@ public class App {
         myInventory = i.getInventory();
 
         System.out.println(myInventory.get(1).getProductName());
+        System.out.println(myInventory.get(2).getProductName());
     }
 }
