@@ -3,7 +3,7 @@ package Resources;
 import java.util.ArrayList;
 
 public class ShoppingCart {
-    private ArrayList<Product> items;
+    private final ArrayList<Product> items;
 
     public ShoppingCart() {
         items = new ArrayList<Product>();
@@ -23,5 +23,9 @@ public class ShoppingCart {
             totalPrice += p.getPrice();
         }
         return totalPrice;
+    }
+
+    public boolean isEmpty() {
+        return items.isEmpty();
     }
 }

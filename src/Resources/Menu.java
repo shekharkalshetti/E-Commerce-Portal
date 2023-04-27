@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class Menu {
     private ArrayList<Product> inventory;
-    private ArrayList<Product> cart;
+    private ShoppingCart cart;
     private Scanner input;
 
     public Menu() {
         inventory = new ArrayList<Product>();
-        cart = new ArrayList<Product>();
+        cart = new ShoppingCart();
         input = new Scanner(System.in);
     }
 
@@ -51,7 +51,13 @@ public class Menu {
         }
     }
 
-    private void checkout() {
+    public void checkout() {
+        if (cart.isEmpty()) {
+            System.out.println("Looks like your cart is empty! Try adding items to checkout.");
+        }
+        System.out.println("\n---Your Cart---\n");
+        double totalCost = 0.0;
+
     }
 
     private void viewInventory() {
@@ -67,17 +73,10 @@ public class Menu {
         System.out.println("\nEnter Product ID to add to cart:");
         int id = input.nextInt();
         boolean found = false;
-        for (Product product : inventory) {
-            if (product.getProductId() == id) {
-                cart.add(product);
-                System.out.println("\n" + product.getProductName() + " added to cart.");
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("\nProduct not found in inventory.");
-        }
+        //find product
+        //add to cart if found
+
+        //if not found display not found
     }
 
     private void viewCart() {
@@ -86,9 +85,7 @@ public class Menu {
         } else {
             System.out.println("\nYour Cart:\n");
             System.out.println("ID\tProduct Name\tDescription\tPrice");
-            for (Product product : cart) {
-                System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t" + product.getDescription() + "\t" + product.getPrice());
-            }
+            //display items
         }
     }
 
@@ -99,14 +96,7 @@ public class Menu {
             System.out.println("\nEnter Product ID to remove from cart:");
             int id = input.nextInt();
             boolean found = false;
-            for (Product product : cart) {
-                if (product.getProductId() == id) {
-                    cart.remove(product);
-                    System.out.println("\n" + product.getProductName() + " removed from cart.");
-                    found = true;
-                    break;
-                }
-            }
+            //find product and delete
             if (!found) {
                 System.out.println("\nProduct not found in cart.");
             }
