@@ -1,16 +1,9 @@
-import Resources.Inventory;
-import Resources.Product;
-
-import java.util.ArrayList;
+import Resources.Menu;
 
 public class App {
     public static void main(String[] args) {
-        // creating inventory
-        Inventory i = new Inventory();
-        ArrayList<Product> myInventory;
-        myInventory = i.getInventory();
+        Menu menu = new Menu();
 
-        System.out.println(myInventory.get(1).getProductName());
-        System.out.println(myInventory.get(2).getProductName());
+        menu.displayMenu();
     }
 }

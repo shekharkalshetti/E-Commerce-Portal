@@ -2,11 +2,12 @@ package Resources;
 
 import java.util.ArrayList;
 
-public class Inventory {
+// extends showcases use of polymorphism
+public class Inventory extends ItemList {
     private final ArrayList<Product> inventory;
 
     public Inventory() {
-        inventory = new ArrayList<>();
+        inventory = new ArrayList<Product>();
 
         Product p1 = new Product();
         Product p2 = new Product();
@@ -27,7 +28,7 @@ public class Inventory {
         p2.setProductId(102);
 
         // Product p3
-        p2.setProductName("iPhone 13 Pro");
+        p3.setProductName("iPhone 13 Pro");
         p3.setDescription("Gold");
         p3.setPrice(105900);
         p3.setProductId(103);

@@ -2,30 +2,21 @@ package Resources;
 
 import java.util.ArrayList;
 
-public class ShoppingCart {
-    private final ArrayList<Product> items;
+// extends showcases use of polymorphism
+public class ShoppingCart extends ItemList {
+    private final ArrayList<Product> cart;
 
     public ShoppingCart() {
-        items = new ArrayList<Product>();
-    }
-
-    public void addItem(Product p) {
-        items.add(p);
-    }
-
-    public ArrayList<Product> getItems() {
-        return items;
+        cart = new ArrayList<Product>();
     }
 
     public double getTotalPrice() {
         double totalPrice = 0.0;
-        for (Product p : items) {
+        for (Product p : cart) {
             totalPrice += p.getPrice();
         }
         return totalPrice;
     }
 
-    public boolean isEmpty() {
-        return items.isEmpty();
-    }
+
 }

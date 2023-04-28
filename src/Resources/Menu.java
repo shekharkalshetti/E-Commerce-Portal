@@ -55,16 +55,41 @@ public class Menu {
         if (cart.isEmpty()) {
             System.out.println("Looks like your cart is empty! Try adding items to checkout.");
         }
-        System.out.println("\n---Your Cart---\n");
-        double totalCost = 0.0;
+        System.out.println("\n");
+        System.out.println("====================================");
+        System.out.println("Your Cart");
+        System.out.println("====================================");
+        System.out.println("\n");
+        System.out.println("ID\tProduct Name\tDescription\tPrice");
 
+        // calculating total cost
+        double totalCost = 0.0;
+        for (int i = 0; i < cart.getItems().size(); i++) {
+            Product product = cart.getItems().get(i);
+            totalCost += product.getPrice();
+        }
+
+        // displaying cart
+        for (int i = 0; i < cart.getItems().size(); i++) {
+            Product product = cart.getItems().get(i);
+            System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t" + product.getDescription() + "\t" + product.getPrice());
+        }
+
+        System.out.println("\n");
+        System.out.println("====================================");
+        System.out.println("Total amount to be paid: Rs " + totalCost);
+        System.out.println("====================================");
+        System.out.println("\n");
     }
 
     private void viewInventory() {
         inventory = new Inventory().getInventory();
         System.out.println("\nCurrent Inventory:\n");
         System.out.println("ID\tProduct Name\tDescription\tPrice");
-        for (Product product : inventory) {
+
+        // iterating over all inventory and displaying them
+        for (int i = 0; i < inventory.size(); i++) {
+            Product product = inventory.get(i);
             System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t" + product.getDescription() + "\t" + product.getPrice());
         }
     }
@@ -73,10 +98,18 @@ public class Menu {
         System.out.println("\nEnter Product ID to add to cart:");
         int id = input.nextInt();
         boolean found = false;
-        //find product
-        //add to cart if found
+        for (int i = 0; i < inventory.size(); i++) {
+            Product product = inventory.get(i);
+            if (product.getProductId() == id) {
+                found = true;
+                cart.addItem(product);
+                System.out.println(product.getProductName() + " " + product.getDescription() + " has been added to cart");
+            }
+        }
 
-        //if not found display not found
+        if (!found) {
+            System.out.println("The product id you entered either doesn't exist or is not available currently\n");
+        }
     }
 
     private void viewCart() {
@@ -85,7 +118,12 @@ public class Menu {
         } else {
             System.out.println("\nYour Cart:\n");
             System.out.println("ID\tProduct Name\tDescription\tPrice");
-            //display items
+
+            // iterating over all items in cart and displaying them
+            for (int i = 0; i < cart.getItems().size(); i++) {
+                Product product = cart.getItems().get(i);
+                System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t" + product.getDescription() + "\t" + product.getPrice());
+            }
         }
     }
 
@@ -97,6 +135,14 @@ public class Menu {
             int id = input.nextInt();
             boolean found = false;
             //find product and delete
+            for (int i = 0; i < inventory.size(); i++) {
+                Product product = inventory.get(i);
+                if (product.getProductId() == id) {
+                    found = true;
+                    cart.remove(product);
+                    System.out.println(product.getProductName() + " " + product.getDescription() + " has been removed from cart");
+                }
+            }
             if (!found) {
                 System.out.println("\nProduct not found in cart.");
             }
