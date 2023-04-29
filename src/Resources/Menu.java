@@ -1,5 +1,8 @@
 package Resources;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +18,11 @@ public class Menu {
     }
 
     public void displayMenu() {
-        System.out.println("\nWelcome to our E-commerce store!\n");
+        System.out.println("====================================");
+        System.out.println("Welcome to our E-commerce store!");
+        System.out.println("====================================");
         while (true) {
-            System.out.println("Please select an option:");
+            System.out.println("\nPlease select an option:");
             System.out.println("1. View Inventory");
             System.out.println("2. Add Product to Cart");
             System.out.println("3. View Cart");
@@ -77,9 +82,39 @@ public class Menu {
 
         System.out.println("\n");
         System.out.println("====================================");
-        System.out.println("Total amount to be paid: Rs " + totalCost);
+        System.out.println("Total amount to be paid: $" + totalCost);
         System.out.println("====================================");
-        System.out.println("\n");
+
+        System.out.println("Enter name:");
+        input.nextLine();
+        String name = input.nextLine();
+        System.out.println("Enter billing address:");
+        String billingAddress = input.nextLine();
+        System.out.println("Enter phone number: ");
+        long phoneNo = input.nextLong();
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("OrderDetails.txt", true));
+            bw.write(name + "'s order: ");
+            bw.newLine();
+            for (int i = 0; i < cart.getItems().size(); i++) {
+                Product product = cart.getItems().get(i);
+                bw.write("# " + product.getProductName() + "\n\t$" + product.getPrice());
+                bw.newLine();
+            }
+            bw.write("Total Billing Amount: $" + totalCost);
+            bw.newLine();
+            bw.write("Billing Address: " + billingAddress + ".");
+            bw.newLine();
+            bw.write("Phone Number: " + phoneNo + ".");
+            bw.newLine();
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+
+        System.out.println(name + ", thank you for shopping with us! Your order will reach you soon at " + billingAddress);
     }
 
     private void viewInventory() {
