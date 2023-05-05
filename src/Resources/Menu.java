@@ -6,6 +6,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+class CartEmpty extends Exception {
+    String errorMessage;
+
+    public CartEmpty(String message) {
+        errorMessage = message;
+    }
+
+    public String getMessage() {
+        return errorMessage;
+    }
+}
+
 public class Menu {
     private ArrayList<Product> inventory;
     private ShoppingCart cart;
@@ -46,7 +58,7 @@ public class Menu {
                     break;
                 case 5:
                     checkout();
-                    break;
+                    System.exit(0);
                 case 6:
                     System.out.println("Goodbye!");
                     System.exit(0);
@@ -77,7 +89,8 @@ public class Menu {
         // displaying cart
         for (int i = 0; i < cart.getItems().size(); i++) {
             Product product = cart.getItems().get(i);
-            System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t" + product.getDescription() + "\t" + product.getPrice());
+            System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t"
+                    + product.getDescription() + "\t" + product.getPrice());
         }
 
         System.out.println("\n");
@@ -114,19 +127,25 @@ public class Menu {
             System.out.print(e.getMessage());
         }
 
-        System.out.println(name + ", thank you for shopping with us! Your order will reach you soon at " + billingAddress);
+        System.out.println();
+        System.out.println(
+                name + ", thank you for shopping with us! Your order will reach you soon at " + billingAddress);
     }
 
     private void viewInventory() {
         inventory = new Inventory().getInventory();
         System.out.println("\nCurrent Inventory:\n");
-        System.out.println("ID\tProduct Name\tDescription\tPrice");
+        System.out.println("=====================================================================================================");
+        System.out.println("ID\t\t\tProduct Name                  \t\t\tDescription                  \t\t\tPrice");
 
         // iterating over all inventory and displaying them
+        System.out.println("====================================================================================================");
         for (int i = 0; i < inventory.size(); i++) {
             Product product = inventory.get(i);
-            System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t" + product.getDescription() + "\t" + product.getPrice());
+            System.out.println(product.getProductId() + "\t\t\t" + product.getProductName() + "\t\t\t"
+                    + product.getDescription() + "\t\t\t" + product.getPrice());
         }
+        System.out.println("====================================================================================================");
     }
 
     private void addProductToCart() {
@@ -138,7 +157,8 @@ public class Menu {
             if (product.getProductId() == id) {
                 found = true;
                 cart.addItem(product);
-                System.out.println(product.getProductName() + " " + product.getDescription() + " has been added to cart");
+                System.out
+                        .println(product.getProductName() + " " + product.getDescription() + " has been added to cart");
             }
         }
 
@@ -157,7 +177,8 @@ public class Menu {
             // iterating over all items in cart and displaying them
             for (int i = 0; i < cart.getItems().size(); i++) {
                 Product product = cart.getItems().get(i);
-                System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t" + product.getDescription() + "\t" + product.getPrice());
+                System.out.println(product.getProductId() + "\t" + product.getProductName() + "\t"
+                        + product.getDescription() + "\t" + product.getPrice());
             }
         }
     }
@@ -169,13 +190,14 @@ public class Menu {
             System.out.println("\nEnter Product ID to remove from cart:");
             int id = input.nextInt();
             boolean found = false;
-            //find product and delete
+            // find product and delete
             for (int i = 0; i < inventory.size(); i++) {
                 Product product = inventory.get(i);
                 if (product.getProductId() == id) {
                     found = true;
                     cart.remove(product);
-                    System.out.println(product.getProductName() + " " + product.getDescription() + " has been removed from cart");
+                    System.out.println(
+                            product.getProductName() + " " + product.getDescription() + " has been removed from cart");
                 }
             }
             if (!found) {

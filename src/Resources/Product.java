@@ -6,6 +6,7 @@ public class Product {
     private String description;
     private double price;
 
+    // parameterized constructor
     public Product(int productId, String productName, String description, double price) {
         this.productId = productId;
         this.productName = productName;
@@ -13,14 +14,17 @@ public class Product {
         this.price = price;
     }
 
+    // default constructor
     public Product() {
-        
+
     }
 
+    // getters for retrieving private members
     public int getProductId() {
         return productId;
     }
 
+    // setters for updating/setting date to private members
     public void setProductId(int productId) {
         this.productId = productId;
     }

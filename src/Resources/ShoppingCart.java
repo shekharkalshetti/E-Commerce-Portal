@@ -3,6 +3,7 @@ package Resources;
 import java.util.ArrayList;
 
 // extends showcases use of polymorphism
+// ShoppingCart is of type ItemList
 public class ShoppingCart extends ItemList {
     private final ArrayList<Product> cart;
 
@@ -17,6 +18,5 @@ public class ShoppingCart extends ItemList {
         }
         return totalPrice;
     }
-
 
 }
